@@ -1,14 +1,12 @@
+import { Composer } from '@/components/site/composer'
 import { CtaFooter } from '@/components/site/cta-footer'
 import { Header } from '@/components/site/header'
 import { Hero } from '@/components/site/hero'
-import { Impact } from '@/components/site/impact'
-import { Platform } from '@/components/site/platform'
+import { Industries } from '@/components/site/industries'
+import { Process } from '@/components/site/process'
 import { Products } from '@/components/site/products'
-import { Roadmap } from '@/components/site/roadmap'
-import { Showcase } from '@/components/site/showcase'
-import { Solutions } from '@/components/site/solutions'
-import { Testimonials } from '@/components/site/testimonials'
-import { Trusted } from '@/components/site/trusted'
+import { Services } from '@/components/site/services'
+import { Work } from '@/components/site/work'
 
 export default function Page() {
   return (
@@ -16,14 +14,12 @@ export default function Page() {
       <Header />
       <main>
         <Hero />
-        <Trusted />
-        <Impact />
+        <Industries />
         <Products />
-        <Platform />
-        <Showcase />
-        <Solutions />
-        <Roadmap />
-        <Testimonials />
+        <Services />
+        <Work />
+        <Composer />
+        <Process />
       </main>
       <CtaFooter />
     </>

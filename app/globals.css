@@ -46,24 +46,25 @@
 
 :root {
   color-scheme: dark;
-  --background: oklch(0.13 0.005 260);
-  --foreground: oklch(0.97 0.005 100);
-  --card: oklch(0.17 0.006 260);
-  --card-foreground: oklch(0.97 0.005 100);
-  --popover: oklch(0.17 0.006 260);
-  --popover-foreground: oklch(0.97 0.005 100);
-  --primary: oklch(0.91 0.21 128);
-  --primary-foreground: oklch(0.16 0.02 130);
-  --secondary: oklch(0.21 0.006 260);
-  --secondary-foreground: oklch(0.97 0.005 100);
-  --muted: oklch(0.21 0.006 260);
-  --muted-foreground: oklch(0.7 0.01 260);
-  --accent: oklch(0.24 0.008 260);
-  --accent-foreground: oklch(0.97 0.005 100);
+  /* Pointer IT Solutions brand: logo navy #0B2560 + cobalt #1F78E0 */
+  --background: oklch(0.15 0.045 263);
+  --foreground: oklch(0.97 0.01 250);
+  --card: oklch(0.2 0.06 263);
+  --card-foreground: oklch(0.97 0.01 250);
+  --popover: oklch(0.2 0.06 263);
+  --popover-foreground: oklch(0.97 0.01 250);
+  --primary: oklch(0.64 0.18 255);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.29 0.12 264);
+  --secondary-foreground: oklch(0.97 0.01 250);
+  --muted: oklch(0.23 0.06 263);
+  --muted-foreground: oklch(0.74 0.035 255);
+  --accent: oklch(0.82 0.1 235);
+  --accent-foreground: oklch(0.18 0.05 263);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.91 0.21 128);
+  --border: oklch(0.85 0.06 255 / 12%);
+  --input: oklch(0.85 0.06 255 / 16%);
+  --ring: oklch(0.64 0.18 255);
   --radius: 0.75rem;
 }
 
@@ -114,6 +115,27 @@
   from { background-position: 200% 0; }
   to { background-position: -200% 0; }
 }
+@keyframes chevron {
+  0%, 100% { opacity: 0.2; transform: translateY(4px); }
+  40% { opacity: 1; transform: translateY(0); }
+}
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+@keyframes orbit {
+  to { transform: rotate(360deg); }
+}
+
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklch, var(--foreground) 45%, transparent);
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
 @keyframes word-in {
   from { opacity: 0; transform: translateY(0.6em) rotate(4deg); filter: blur(8px); }
   to { opacity: 1; transform: translateY(0) rotate(0); filter: blur(0); }

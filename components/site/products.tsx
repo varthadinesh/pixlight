@@ -1,91 +1,123 @@
-import Image from 'next/image'
+'use client'
+
 import { ArrowUpRight, Check } from 'lucide-react'
-import { Reveal, SectionLabel, SplitText, SpotlightCard } from './motion'
+import Image from 'next/image'
+import { Reveal, SectionLabel, SplitText, useScrollProgress } from './motion'
 
 const products = [
   {
-    name: 'Canvas',
-    kicker: 'Workflow orchestration',
-    image: '/images/product-canvas.png',
-    body: 'Design pipelines, agents, and services in one editable graph. Rerun any node, version every change.',
-    points: ['Visual node editor', 'Git-native versioning', 'One-click rollbacks'],
+    name: 'EduVeda',
+    motto: 'Teach. Manage. Grow.',
+    body: 'An education platform for schools and colleges: admissions, fees, attendance, examinations and parent communication in one system.',
+    points: [
+      'Admissions, academic year and class management',
+      'Fees, attendance, gradebook and notifications',
+      'Role-based access for office, faculty and parents',
+    ],
+    image: '/images/eduveda.png',
   },
   {
-    name: 'Beacon',
-    kicker: 'Real-time observability',
-    image: '/images/product-beacon.png',
-    body: 'Traces, logs, and metrics stitched into a single signal — with anomaly detection before users notice.',
-    points: ['Sub-second alerting', 'AI root-cause analysis', 'OpenTelemetry native'],
+    name: 'BillVeda',
+    motto: 'Bill. Track. Grow.',
+    body: 'Invoicing, inventory, payments and day-end reports for retail and specialised counters.',
+    points: ['Products, billing and customer records', 'Stock, returns and adjustments', 'Roles and end-of-day business reports'],
+    image: '/images/billveda.png',
   },
   {
-    name: 'Prism',
-    kicker: 'AI data platform',
-    image: '/images/product-prism.png',
-    body: 'Split raw data into governed, model-ready streams. Train, evaluate, and deploy without leaving your stack.',
-    points: ['Vector + SQL in one', 'Fine-grained governance', 'Bring any model'],
+    name: 'ComVeda',
+    motto: 'Connect. Engage. Grow.',
+    body: 'Campaigns across SMS, WhatsApp, voice and RCS, with templates, delivery tracking and reports.',
+    points: ['SMS, WhatsApp, voice and RCS', 'Campaigns, templates and APIs', 'Delivery and communication reports'],
+    image: '/images/comveda.png',
   },
 ]
 
+function ProductCard({ product, index, total }: { product: (typeof products)[number]; index: number; total: number }) {
+  const ref = useScrollProgress<HTMLDivElement>('view')
+  const isLast = index === total - 1
+
+  return (
+    <div ref={ref} className="sticky h-[88svh]" style={{ top: `calc(5rem + ${index * 1.75}rem)` }}>
+      <article
+        className="grid h-full origin-top overflow-hidden rounded-3xl border border-border bg-card shadow-2xl shadow-black/40 md:grid-cols-2"
+        style={{
+          transform: isLast ? undefined : 'scale(calc(1 - max(var(--p) - 0.5, 0) * 0.12))',
+          filter: isLast ? undefined : 'brightness(calc(1 - max(var(--p) - 0.5, 0) * 0.8))',
+        }}
+      >
+        <div className="flex flex-col justify-between gap-8 p-7 md:p-12">
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="font-display text-sm text-primary">0{index + 1}</span>
+              <span className="h-px w-10 bg-primary/50" />
+              <span className="text-xs uppercase tracking-[0.25em] text-muted-foreground">Flagship product</span>
+            </div>
+            <h3 className="font-display mt-6 text-5xl font-semibold tracking-tight md:text-7xl">{product.name}</h3>
+            <p className="font-display mt-3 text-lg text-accent md:text-xl">{product.motto}</p>
+            <p className="mt-5 max-w-md text-pretty leading-relaxed text-muted-foreground">{product.body}</p>
+          </div>
+          <div>
+            <ul className="flex flex-col gap-3">
+              {product.points.map((point) => (
+                <li key={point} className="flex items-start gap-3 text-sm">
+                  <span className="mt-0.5 inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-primary">
+                    <Check className="size-3" aria-hidden="true" />
+                  </span>
+                  {point}
+                </li>
+              ))}
+            </ul>
+            <a
+              href="#contact"
+              className="group mt-8 inline-flex items-center gap-2 rounded-full border border-foreground/20 px-5 py-2.5 text-sm font-medium transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
+            >
+              Request a demo
+              <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </div>
+        </div>
+        <div className="relative hidden overflow-hidden md:block">
+          <Image
+            src={product.image}
+            alt={`${product.name} product interface`}
+            fill
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
+            style={{ transform: 'scale(calc(1.18 - var(--p) * 0.18)) translateY(calc((var(--p) - 0.5) * -6%))' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-card via-card/10 to-transparent" />
+        </div>
+      </article>
+    </div>
+  )
+}
+
 export function Products() {
   return (
-    <section id="products" className="py-28 md:py-36">
+    <section id="products" aria-labelledby="products-title" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <Reveal>
-              <SectionLabel>Products</SectionLabel>
-            </Reveal>
-            <h2 className="font-display mt-5 max-w-3xl text-balance text-4xl font-semibold tracking-tight md:text-6xl">
-              <SplitText text="Three products. One frequency." highlight={['One', 'frequency.']} />
-            </h2>
+            <SectionLabel>Products</SectionLabel>
+            <SplitText
+              as="h2"
+              text="Systems engineered around one industry"
+              highlight={['one', 'industry']}
+              className="font-display mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl"
+            />
           </div>
           <Reveal delay={200}>
-            <p className="max-w-sm leading-relaxed text-muted-foreground">
-              Use them alone or together. Every Northlight product shares the same identity, data layer, and APIs.
+            <p className="max-w-sm text-pretty leading-relaxed text-muted-foreground">
+              They work alone, or together. Each one is in production and supported by the team that built it.
             </p>
           </Reveal>
         </div>
 
-        <ul className="mt-16 grid gap-5 lg:grid-cols-3">
+        <div className="mt-14 flex flex-col gap-10 pb-[6vh]">
           {products.map((product, i) => (
-            <Reveal as="li" key={product.name} delay={i * 150}>
-              <SpotlightCard className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card/60 transition-all duration-500 hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_30px_80px_-30px_color-mix(in_oklch,var(--primary)_45%,transparent)]">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={product.image || '/placeholder.svg'}
-                    alt={`${product.name} product visual`}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, 100vw"
-                    className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
-                  <span className="absolute left-5 top-5 rounded-full border border-border bg-background/60 px-3 py-1 text-xs backdrop-blur-md">
-                    {product.kicker}
-                  </span>
-                  <span className="absolute right-5 top-5 flex size-10 items-center justify-center rounded-full bg-primary text-primary-foreground opacity-0 transition-all duration-500 group-hover:rotate-45 group-hover:opacity-100">
-                    <ArrowUpRight className="size-5" />
-                  </span>
-                </div>
-                <div className="flex flex-1 flex-col p-7">
-                  <h3 className="font-display text-3xl font-semibold tracking-tight">
-                    Northlight <span className="text-primary">{product.name}</span>
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-muted-foreground">{product.body}</p>
-                  <ul className="mt-6 space-y-2.5 border-t border-border pt-6 text-sm">
-                    {product.points.map((point) => (
-                      <li key={point} className="flex items-center gap-3">
-                        <span className="flex size-5 items-center justify-center rounded-full bg-primary/15 text-primary">
-                          <Check className="size-3" />
-                        </span>
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </SpotlightCard>
-            </Reveal>
+            <ProductCard key={product.name} product={product} index={i} total={products.length} />
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   )
