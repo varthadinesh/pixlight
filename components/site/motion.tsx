@@ -26,42 +26,6 @@ function useInView<T extends Element>(threshold = 0.2) {
   return { ref, visible }
 }
 
-/**
- * Writes scroll progress (0..1) to the element as the CSS variable `--p`
- * without re-rendering. `pin` measures progress through a tall sticky section,
- * `view` measures from entering the viewport bottom to leaving the top.
- */
-export function useScrollProgress<T extends HTMLElement>(mode: 'pin' | 'view' = 'pin') {
-  const ref = useRef<T>(null)
-
-  useEffect(() => {
-    const node = ref.current
-    if (!node) return
-    let frame = 0
-    const update = () => {
-      frame = 0
-      const rect = node.getBoundingClientRect()
-      const vh = window.innerHeight
-      const raw =
-        mode === 'pin' ? -rect.top / Math.max(rect.height - vh, 1) : (vh - rect.top) / (vh + rect.height)
-      node.style.setProperty('--p', Math.min(Math.max(raw, 0), 1).toFixed(4))
-    }
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update)
-    }
-    update()
-    window.addEventListener('scroll', schedule, { passive: true })
-    window.addEventListener('resize', schedule)
-    return () => {
-      cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', schedule)
-      window.removeEventListener('resize', schedule)
-    }
-  }, [mode])
-
-  return ref
-}
-
 export function Reveal({
   children,
   className,

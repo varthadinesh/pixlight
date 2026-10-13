@@ -1,16 +1,18 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Inter, Sora } from 'next/font/google'
-import { SmoothScroll } from '@/components/site/smooth-scroll'
+import { Inter, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const sora = Sora({ subsets: ['latin'], variable: '--font-space-grotesk' })
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+})
 
 export const metadata: Metadata = {
-  title: 'Pointer IT Solutions — Software, ERP & Digital Solutions | Hyderabad',
+  title: 'Northlight — Software products that move at the speed of light',
   description:
-    'Pointer IT Solutions builds EduVeda, BillVeda and ComVeda — school ERP, retail billing and bulk SMS, WhatsApp, voice & RCS messaging — plus web, app, SEO and hosting services since 2011.',
+    'Northlight builds the platform, observability, and AI data products that power 12,000+ engineering teams worldwide.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'dark',
-  themeColor: '#071433',
+  themeColor: '#0b0c10',
 }
 
 export default function RootLayout({
@@ -42,9 +44,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${sora.variable} bg-background`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} bg-background`}>
       <body className="antialiased">
-        <SmoothScroll />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
