@@ -1,99 +1,68 @@
-'use client'
+import { ArrowRight } from 'lucide-react'
+import { Logo } from './header'
+import { Reveal, SplitText } from './motion'
 
-import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react'
-import Image from 'next/image'
-import { Reveal, SplitText, useScrollProgress } from './motion'
-
-const contacts = [
-  { icon: Mail, label: 'sales@pointerits.com', href: 'mailto:sales@pointerits.com' },
-  { icon: Mail, label: 'info@pointerits.com', href: 'mailto:info@pointerits.com' },
-  { icon: Phone, label: '+91 77801 99652', href: 'tel:+917780199652' },
-  { icon: MapPin, label: 'Hyderabad, Telangana, India' },
-]
-
-const links = [
-  { title: 'Products', items: ['EduVeda', 'BillVeda', 'ComVeda'] },
-  { title: 'Services', items: ['Application development', 'Web design', 'Bulk messaging', 'SEO and SEM'] },
-  { title: 'Company', items: ['About', 'Work', 'Careers', 'Contact'] },
+const columns = [
+  { title: 'Products', links: ['Canvas', 'Beacon', 'Prism', 'Pricing'] },
+  { title: 'Company', links: ['About', 'Careers', 'Press', 'Contact'] },
+  { title: 'Resources', links: ['Docs', 'Changelog', 'Status', 'Security'] },
 ]
 
 export function CtaFooter() {
-  const wordRef = useScrollProgress<HTMLDivElement>('view')
-
   return (
-    <footer id="contact" className="relative overflow-hidden border-t border-border">
-      <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
-        <div className="relative overflow-hidden rounded-[2rem] bg-secondary p-8 md:p-16">
-          <div className="pointer-events-none absolute -right-20 -top-20 size-96 rounded-full bg-primary/40 blur-[100px]" aria-hidden="true" />
-          <div className="relative grid gap-12 lg:grid-cols-[1.3fr_1fr] lg:items-end">
-            <div>
-              <SplitText
-                as="h2"
-                text="Tell us the friction. We will size a plan that fits."
-                highlight={['friction.']}
-                className="font-display text-balance text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl"
-              />
-              <Reveal delay={200}>
-                <p className="mt-6 max-w-lg leading-relaxed text-secondary-foreground/75">
-                  Sketch it in the studio, compose it in the playground, or send the requirement. We reply within one
-                  working day.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-3">
-                  <a
-                    href="mailto:sales@pointerits.com?subject=Quote%20request"
-                    className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition-transform hover:scale-[1.03]"
-                  >
-                    Get a quote
-                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                  </a>
-                  <a
-                    href="tel:+917780199652"
-                    className="inline-flex items-center rounded-full border border-foreground/25 px-6 py-3.5 text-sm font-medium transition-colors hover:bg-foreground/10"
-                  >
-                    Call the team
-                  </a>
-                </div>
-              </Reveal>
-            </div>
-            <Reveal delay={300}>
-              <ul className="flex flex-col gap-3">
-                {contacts.map((c) => (
-                  <li key={c.label}>
-                    {c.href ? (
-                      <a href={c.href} className="flex items-center gap-3 rounded-2xl bg-background/40 px-5 py-4 text-sm transition-colors hover:bg-background/70">
-                        <c.icon className="size-4 text-accent" aria-hidden="true" />
-                        {c.label}
-                      </a>
-                    ) : (
-                      <span className="flex items-center gap-3 rounded-2xl bg-background/40 px-5 py-4 text-sm">
-                        <c.icon className="size-4 text-accent" aria-hidden="true" />
-                        {c.label}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
+    <>
+      <section id="contact" className="px-5 py-20 md:px-8">
+        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-primary/30 bg-card px-6 py-24 text-center md:py-32">
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <div className="absolute left-1/2 top-0 h-80 w-[50rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/30 blur-[120px]" />
+            <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
           </div>
+          <h2 className="font-display relative mx-auto max-w-4xl text-balance text-5xl font-semibold tracking-tighter md:text-7xl">
+            <SplitText text="Ready to ship at light speed?" highlight={['light', 'speed?']} />
+          </h2>
+          <Reveal delay={300} className="relative">
+            <p className="mx-auto mt-6 max-w-xl text-muted-foreground">
+              Start free in minutes, or talk with our team about an enterprise rollout and migration credits.
+            </p>
+            <form className="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:flex-row" action="#contact">
+              <label htmlFor="email" className="sr-only">
+                Work email
+              </label>
+              <input
+                id="email"
+                type="email"
+                required
+                placeholder="you@company.com"
+                className="h-12 flex-1 rounded-full border border-input bg-background/60 px-5 text-sm outline-none backdrop-blur-md placeholder:text-muted-foreground focus:border-primary"
+              />
+              <button
+                type="submit"
+                className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground transition-transform hover:scale-[1.03]"
+              >
+                Book a demo
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </form>
+          </Reveal>
         </div>
+      </section>
 
-        <div className="mt-20 grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
+      <footer className="border-t border-border">
+        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-[1.5fr_repeat(3,1fr)] md:px-8">
           <div>
-            <span className="inline-flex rounded-lg bg-white px-3 py-2">
-              <Image src="/images/pointer-logo.png" alt="Pointer IT Solutions" width={140} height={48} className="h-9 w-auto" />
-            </span>
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Software, ERP and digital solutions from Hyderabad. We reach. You send. Jet SMS, with jet speed.
+            <Logo />
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
+              Product-first software for teams that refuse to slow down.
             </p>
           </div>
-          {links.map((group) => (
-            <nav key={group.title} aria-label={group.title}>
-              <h3 className="font-display text-sm font-semibold">{group.title}</h3>
-              <ul className="mt-4 flex flex-col gap-2.5">
-                {group.items.map((item) => (
-                  <li key={item}>
-                    <a href="#top" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
-                      {item}
+          {columns.map((col) => (
+            <nav key={col.title} aria-label={col.title}>
+              <h3 className="text-sm font-medium">{col.title}</h3>
+              <ul className="mt-4 space-y-3 text-sm text-muted-foreground">
+                {col.links.map((link) => (
+                  <li key={link}>
+                    <a href="#top" className="transition-colors hover:text-primary">
+                      {link}
                     </a>
                   </li>
                 ))}
@@ -101,23 +70,19 @@ export function CtaFooter() {
             </nav>
           ))}
         </div>
-      </div>
-
-      <div ref={wordRef} className="overflow-hidden" aria-hidden="true">
-        <p
-          className="font-display whitespace-nowrap text-center text-[22vw] font-bold leading-[0.8] tracking-tighter text-foreground/[0.06]"
-          style={{ transform: 'translateX(calc((0.6 - var(--p)) * 30%))' }}
-        >
-          POINTER
-        </p>
-      </div>
-
-      <div className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-2 px-5 py-6 text-xs text-muted-foreground md:flex-row md:px-8">
-          <p>© {new Date().getFullYear()} Pointer IT Solutions (OPC) Private Limited. All rights reserved.</p>
-          <p>Founded 2011 · Hyderabad</p>
+        <div className="overflow-hidden">
+          <p
+            className="font-display select-none text-center text-[22vw] font-semibold leading-[0.8] tracking-tighter text-foreground/[0.04]"
+            aria-hidden="true"
+          >
+            Northlight
+          </p>
         </div>
-      </div>
-    </footer>
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-4 border-t border-border px-5 py-6 text-xs text-muted-foreground sm:flex-row md:px-8">
+          <p>© 2026 Northlight Systems, Inc. All rights reserved.</p>
+          <p>Privacy · Terms · Cookies</p>
+        </div>
+      </footer>
+    </>
   )
 }
